@@ -29,13 +29,22 @@ public class OcupacaoService {
         }
     }
 
-    public OcupacaoRetornoDto getOcupacaoBy(long id) {
+    public OcupacaoRetornoDto getOcupacaoBy(Long id) {
         Optional<Ocupacao> ocupacao = ocupacaoRepository.findById(id);
 
-        if (ocupacao.isEmpty())
+        if (!ocupacao.isPresent() || ocupacao.isEmpty())
             throw new OcupacaoNaoEncontradaException(id);
 
         return OcupacaoRetornoDto.valueOf(ocupacao.get());
+    }
+
+    public Optional<Ocupacao> getBy(Long id) {
+        Optional<Ocupacao> ocupacao = ocupacaoRepository.findById(id);
+
+        if (!ocupacao.isPresent() || ocupacao.isEmpty())
+            throw new OcupacaoNaoEncontradaException(id);
+
+        return ocupacao;
     }
 
     public void criaOcupacao(OcupacaoDto ocupacaoDto) {

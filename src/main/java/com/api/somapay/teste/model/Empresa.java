@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,7 +16,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "EMPRESA")
+@Table(name = "EMPRESA", schema = "SIMULADOR")
 public class Empresa {
 
     @Id
@@ -37,23 +36,12 @@ public class Empresa {
     @Column(name = "TELEFONE", nullable = false, length = 20)
     private String telefone;
 
-    @Embedded
-    private Endereco endereco;
-
     @OneToMany(mappedBy = "empresa", targetEntity = Funcionario.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Funcionario> listaFuncionarios;
 
     /**
      * GET AND SET
      */
-
-    public Endereco getEndereco() {
-        return this.endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
 
     public List<Funcionario> getListaFuncionarios() {
         return this.listaFuncionarios;
