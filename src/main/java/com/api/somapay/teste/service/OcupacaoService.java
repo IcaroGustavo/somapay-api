@@ -47,4 +47,40 @@ public class OcupacaoService {
         ocupacaoRepository.save(ocupacao);
     }
 
+    public OcupacaoRetornoDto editaOcupacao(Long id, OcupacaoDto ocupacaoDto) {
+
+        Ocupacao ocupacao = null;
+        Optional<Ocupacao> ocupacaoSalva = ocupacaoRepository.findById(id);
+
+        if (ocupacaoSalva.isPresent()) {
+
+            ocupacao = ocupacaoSalva.get();
+
+            int salarioIgual = ocupacao.getSalario().compareTo(ocupacaoDto.getSalario());
+
+            if (ocupacao.getOcupacao().equals(ocupacaoDto.getOcupacao()) && salarioIgual == 0) {
+                return null;
+            } else {
+
+                ocupacao.setOcupacao(ocupacaoDto.getOcupacao());
+                ocupacao.setSalario(ocupacaoDto.getSalario());
+                ocupacao.setId(id);
+
+                ocupacaoRepository.save(ocupacao);
+            }
+        }
+
+        OcupacaoRetornoDto ocupacaoAtualziada = getOcupacaoBy(id);
+        return ocupacaoAtualziada;
+
+    }
+
+    public void deletaOcupacao(Long id) {
+
+        OcupacaoRetornoDto ocupacaoRetornoDtoSalva = getOcupacaoBy(id);
+
+        if (ocupacaoRetornoDtoSalva != null)
+            ocupacaoRepository.deleteById(id);
+    }
+
 }
