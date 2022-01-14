@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 
 import com.api.somapay.teste.dto.FuncionarioDto;
 import com.api.somapay.teste.dto.FuncionarioRetornoDto;
+import com.api.somapay.teste.exception.EmpresaNaoEncontradaException;
 import com.api.somapay.teste.exception.FuncionarioNaoEncontradoException;
 import com.api.somapay.teste.exception.OcupacaoNaoEncontradaException;
+import com.api.somapay.teste.model.Empresa;
 import com.api.somapay.teste.model.Funcionario;
 import com.api.somapay.teste.model.Ocupacao;
 import com.api.somapay.teste.repository.FuncionarioRepository;
@@ -24,8 +26,8 @@ public class FuncionarioService {
     @Autowired
     private OcupacaoService ocupacaoService;
 
-    // @Autowired
-    // private EmpresaService empresaService;
+    @Autowired
+    private EmpresaService empresaService;
 
     public List<FuncionarioRetornoDto> getAll() {
 
@@ -56,12 +58,44 @@ public class FuncionarioService {
 
     public void criaFuncionario(FuncionarioDto funcionarioDto) {
 
-        Ocupacao ocupacao = ocupacaoService.getBy(funcionarioDto.getIdEmpresa())
+        Ocupacao ocupacao = ocupacaoService.getBy(funcionarioDto.getIdOcupacao())
                 .orElseThrow(OcupacaoNaoEncontradaException::new);
+
+        Empresa empresa = empresaService.getBy(funcionarioDto.getIdEmpresa())
+                .orElseThrow(EmpresaNaoEncontradaException::new);
 
         Funcionario funcionario = new Funcionario();
         funcionario.setFuncionario(funcionarioDto.getFuncionario());
         funcionario.setDataAdmissao(funcionarioDto.getDataAdmissao());
         funcionario.setOcupacao(ocupacao);
+        funcionario.setEmpresa(empresa);
+
+        funcionarioRepository.save(funcionario);
+    }
+
+    public FuncionarioRetornoDto editaFuncionario(Long id, FuncionarioDto funcionarioDto) {
+
+        Funcionario funcionario = null;
+        Optional<Funcionario> funcionarioSalvo = funcionarioRepository.findById(id);
+
+        if (funcionarioSalvo.isPresent()) {
+
+            funcionario = funcionarioSalvo.get();
+
+            Ocupacao ocupacao = ocupacaoService.getBy(funcionarioDto.getIdOcupacao())
+                    .orElseThrow(OcupacaoNaoEncontradaException::new);
+
+            Empresa empresa = empresaService.getBy(funcionarioDto.getIdEmpresa())
+                    .orElseThrow(EmpresaNaoEncontradaException::new);
+
+            funcionario.setFuncionario(funcionarioDto.getFuncionario());
+            funcionario.setDataAdmissao(funcionarioDto.getDataAdmissao());
+            funcionario.setOcupacao(ocupacao);
+            funcionario.setEmpresa(empresa);
+            funcionarioRepository.save(funcionario);
+        }
+
+        FuncionarioRetornoDto funcionarioAtualizado = getFuncionarioBy(id);
+        return funcionarioAtualizado;
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,10 +52,23 @@ public class FuncionarioController {
     }
 
     @PostMapping
-    public ResponseEntity criarFuncionario(@RequestBody @Valid FuncionarioDto ocupacaoDto) {
+    public ResponseEntity criarFuncionario(@RequestBody @Valid FuncionarioDto funcionarioDto) {
 
-        funcionarioService.criaFuncionario(ocupacaoDto);
+        funcionarioService.criaFuncionario(funcionarioDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FuncionarioRetornoDto> editarFuncionario(
+            @PathVariable @Min(value = 1, message = "Id inválido!") Long id,
+            @RequestBody @Valid FuncionarioDto funcionarioDto) {
+
+        FuncionarioRetornoDto funcionarioRetornoSalvo = funcionarioService.editaFuncionario(id, funcionarioDto);
+
+        if (funcionarioRetornoSalvo == null)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        return new ResponseEntity<>(funcionarioRetornoSalvo, HttpStatus.OK);
     }
 
 }
