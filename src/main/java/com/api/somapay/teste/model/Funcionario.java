@@ -21,7 +21,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "FUNCIONARIO", schema = "SIMULADOR")
+@Table(name = "FUNCIONARIO")
 public class Funcionario {
 
     @Id

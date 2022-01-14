@@ -21,6 +21,6 @@ public class FuncionarioNaoEncontradoException extends BusinessException {
     }
 
     public FuncionarioNaoEncontradoException(long id) {
-        super("Ocupação ID: " + id + " não encontrada.");
+        super("Funcionário ID: " + id + " não encontrada.");
     }
 }

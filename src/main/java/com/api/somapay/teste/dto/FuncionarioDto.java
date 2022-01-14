@@ -26,6 +26,9 @@ public class FuncionarioDto {
 
     @Min(value = 1, message = "Ocupação inválida!")
     private Long idOcupacao;
+
+    @Min(value = 1, message = "Situação inválida!")
+    private Integer idSituacaoFuncionario;
     
     @Min(value = 1, message = "Empresa inválida!")
     private Long idEmpresa;
