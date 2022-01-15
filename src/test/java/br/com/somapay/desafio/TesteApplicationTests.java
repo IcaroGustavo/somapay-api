@@ -1,4 +1,4 @@
-package com.api.somapay.teste;
+package br.com.somapay.desafio;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
