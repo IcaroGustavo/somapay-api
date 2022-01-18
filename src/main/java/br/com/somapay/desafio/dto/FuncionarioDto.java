@@ -20,8 +20,7 @@ public class FuncionarioDto {
     @Size(max = 100, message = "LIMITE DE CARACTERES EXCEDIDO!")
     private String funcionario;
 
-    @NotNull(message = "A DATA DE ADMISSÃO NÃO PODE SER NULO!")
-    @NotBlank(message = "A DATA DE ADMISSÃO NÃO PODE SER VAZIA!")
+
     private Date dataAdmissao;
 
     @Min(value = 1, message = "Ocupação inválida!")

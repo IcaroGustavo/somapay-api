@@ -35,7 +35,7 @@ public class Funcionario {
     private SituacaoFuncionarioEnum situacaoFuncionario;
 
     @CreationTimestamp
-    @Column(name = "DATA_ADMISSAO", updatable = false, nullable = false)
+    @Column(name = "DATA_ADMISSAO")
     private Date dataAdmissao;
 
     @OneToOne(fetch = FetchType.LAZY)

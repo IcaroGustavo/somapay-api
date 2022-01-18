@@ -33,5 +33,5 @@ public class PagamentosController {
     public ResponseEntity criar(@RequestBody @Valid TransferenciaDto transferenciaDto) {
         pagamentoService.criar(transferenciaDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
-    } 
+    }
 }

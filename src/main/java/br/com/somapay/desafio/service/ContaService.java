@@ -50,8 +50,7 @@ public class ContaService {
         if (contaSalva.isPresent()) {
 
             conta = contaSalva.get();
-
-            Double saldo = contaDestino.getSaldo() - valor;
+            Double saldo = conta.getSaldo() + valor;
             conta.setSaldo(saldo);
 
             contaRepository.save(conta);
@@ -66,7 +65,7 @@ public class ContaService {
 
             conta = contaSalva.get();
 
-            Double saldo = contaOrigem.getSaldo() + valor;
+            Double saldo = (contaOrigem.getSaldo() - valor);
             conta.setSaldo(saldo);
 
             contaRepository.save(conta);

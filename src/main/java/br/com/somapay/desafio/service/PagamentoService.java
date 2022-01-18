@@ -18,6 +18,9 @@ public class PagamentoService {
     @Autowired
     private TransferenciaService transferenciaService;
 
+    @Autowired
+    private EmailService emailService;
+
     /**
      * Método responsável por verificar saldo de uma conta.
      * @param Id que será verificado a existência. Caso não exista irá disparar a
@@ -52,6 +55,7 @@ public class PagamentoService {
 
         validarTransferencia(transferenciaDto);
         transferenciaService.SalvaTransferencia(transferenciaDto);
+        emailService.enviaEmail(transferenciaDto);
 
     }
 

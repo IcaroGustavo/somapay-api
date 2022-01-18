@@ -24,11 +24,11 @@ public class Transferencia {
     @Column(name = "CODIGO", unique = true, updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "DATA_TRANSFERENCIA", updatable = false, nullable = false)
+    @Column(name = "DATA_TRANSFERENCIA", nullable = true)
     private LocalDateTime dataTransferencia;
 
     @CreationTimestamp
-    @Column(name = "DATA_CRIACAO", updatable = false, nullable = false)
+    @Column(name = "DATA_CRIACAO",nullable = true)
     private LocalDateTime dataCriacao;
 
     @Column(name = "VALOR", updatable = false, nullable = false)
