@@ -43,4 +43,34 @@ public class ContaService {
         }
     }
 
+    public void criaReceita(Conta contaDestino, double valor) {
+        Conta conta = null;
+        Optional<Conta> contaSalva = contaRepository.findById(contaDestino.getId());
+
+        if (contaSalva.isPresent()) {
+
+            conta = contaSalva.get();
+
+            Double saldo = contaDestino.getSaldo() - valor;
+            conta.setSaldo(saldo);
+
+            contaRepository.save(conta);
+        }
+    }
+
+    public void criaDespesa(Conta contaOrigem, double valor) {
+        Conta conta = null;
+        Optional<Conta> contaSalva = contaRepository.findById(contaOrigem.getId());
+
+        if (contaSalva.isPresent()) {
+
+            conta = contaSalva.get();
+
+            Double saldo = contaOrigem.getSaldo() + valor;
+            conta.setSaldo(saldo);
+
+            contaRepository.save(conta);
+        }
+    }
+
 }

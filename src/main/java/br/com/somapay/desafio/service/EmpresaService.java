@@ -48,7 +48,7 @@ public class EmpresaService {
         return empresaSalva;
     }
 
-    public void criaEmpresa(@Valid EmpresaDto empresaDto) {
+    public void criaEmpresa(EmpresaDto empresaDto) {
 
         Empresa empresa = new Empresa();
         empresa.setCnpj(empresaDto.getCnpj());
