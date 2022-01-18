@@ -1,6 +1,9 @@
 # somapay-api
   Aplicação para teste no processo seletivo da empresa SOMAPAY.
   
+# URL do repositório da api de envio de e-mails com mensageria. 
+  https://github.com/IcaroGustavo/somapay-email
+  
 # Bibliotecas
   - Java 11
   - Maven Project
